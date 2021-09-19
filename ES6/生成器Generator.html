@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生成器Generator</title>
+</head>
+
+<body>
+  <script>
+    /* 
+      调用生成器函数为生成一个迭代器对象,
+      第二次调用next()方法传入的参数会作为第一个yield语句的执行结果
+    */
+    function getUsers() {
+      let data = '用户数据'
+      setTimeout(() => {
+        iterator.next(data)
+      }, 1000);
+    }
+
+    function getOrders() {
+      let data = '订单数据'
+      setTimeout(() => {
+        iterator.next(data)
+      }, 1000);
+    }
+
+    function getGoods() {
+      let data = '商品数据'
+      setTimeout(() => {
+        iterator.next(data)
+      }, 1000);
+    }
+
+    function* gen() {
+      let users = yield getUsers()
+      console.log(users);
+      let orders = yield getOrders()
+      console.log(orders);
+      let goods = yield getGoods()
+      console.log(goods);
+    }
+
+    const iterator = gen();
+    iterator.next();
+  </script>
+</body>
+
+</html>

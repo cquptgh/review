@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>this</title>
+</head>
+
+<body>
+  <script>
+    /* 
+      执行上下文的生命周期：创建阶段：生成变量对象,建立作用域链,确定this指向
+                        执行阶段：变量赋值,函数引用,执行其他代码
+      this指向是在函数被调用时确定的,且一旦确定就不可更改
+
+      1.全局对象中的this就是window
+      2.函数中的this
+      3.构造函数中的this
+      4.通过call/apply调用中的this
+
+      总结：
+      1、this在函数定义的时候是没办法确定指向的，只有函数执行的时候，最后谁调用了它才能确定this指向谁
+      2、如果函数中有this，但是函数本身没有被父级(上一级)对象调用，那么就指向window
+      3、如果函数中有this，且函数本身被父级(上一级)对象调用，那么this就指向上一级对象
+      4、如果函数中有this，且函数中有多个对象，尽管函数被最外层对象调用，但this仍然指向父级(上一级)对象
+      5、构造函数中this，指向构造函数实例，如果创建的实例赋给对象，那么等于复制了一份给对象，该对象也
+        拥有实例中的this(new出来的构造函数可以改变this指向)
+      6、构造函数中带return，返回值若是对象，this指向的是那个返回的对象，返回值若是null，this还是指向那个构造函数实例
+      7、es6中=>箭头函数中的this，去掉当前函数的父级(上一级）对象，再看this指向谁，此时指向谁就是谁(结合第3条)
+
+
+      改变this指向的三个方法：
+      1.call
+      2.apply
+      3.bind
+    */
+    var name = '行星飞行';
+    let obj = {
+      name: '听风是风',
+      fn: function () {
+        const that = this
+        return function () {
+          console.log(that.name);
+        }
+      }
+    };
+
+    function fn1(param) {
+      param();
+    };
+    fn1(obj.fn());
+  </script>
+</body>
+
+</html>

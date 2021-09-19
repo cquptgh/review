@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据类型</title>
+</head>
+
+<body>
+  <script>
+    /* 
+      基本数据类型：Number,String,Boolean,Undefined,Null,Symbol,BigInt
+      引用数据类型：Object(Array,Function,Date,RegExp)
+      判断数据类型：
+        1.使用typeof可以检测的数据类型：number,string,boolean,undefined,symbol,bigint,function
+          typeof检测数据类型的原理：不同的对象在计算机底层都表示为二进制,在JavaScript中二进制前三位如果都为0的话
+                                   则被认为是‘object’类型,null的二进制代码全为0,所以使用typeof检测被判定为‘object’
+        2.使用Object.prototype.toString.call(obj).slice(8,-1).toLowerCase()检测数据类型
+     */
+
+    /* 
+     类型转换：
+       显示类型转换：Number(),String(),Boolean(),parseInt()
+       隐式类型转换：比较运算,算数运算
+    */
+
+    /* 
+      isNaN()与Number.isNaN()：isNaN只是用于判断传入的参数是否可以转换为Number类型,传入任何不能转换为Number类型的
+                            值都会返回true,而Number.isNaN()只有传入"NaN"时才返回true
+    */
+    function determine(obj) {
+      return typeof obj !== 'object' ? typeof obj : Object.prototype.toString.call(obj).slice(8, -1).toLowerCase()
+    }
+
+    function deepClone(dataSource) {
+      let target
+      const dataType = determine(dataSource)
+      if (dataType === 'array') {
+        target = []
+      } else if (dataType === 'object') {
+        target = {}
+      } else {
+        return dataSource
+      }
+
+      for (const keyOrIndex in dataSource) {
+        const type = determine(dataSource[keyOrIndex])
+        if (type === 'array' || type === 'object') {
+          target[keyOrIndex] = deepClone(dataSource[keyOrIndex])
+        } else {
+          target[keyOrIndex] = dataSource[keyOrIndex]
+        }
+      }
+      return target
+    }
+
+    const a = [1, 2, 3, {
+      name: 'gh',
+      age: 21
+    }]
+    const b = deepClone(a)
+    b[3].name = 'hxd'
+    console.log(a, b)
+  </script>
+</body>
+
+</html>

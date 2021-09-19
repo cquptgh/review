@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>random获取随机数</title>
+</head>
+
+<body>
+  <script>
+    /* 
+      1.获取[m,n)的随机数：
+        公式：Math.floor(Math.random() * (n - m)) + m
+      2.获取[m,n]的随机数
+        公式：Math.floor(Math.random() * (n - m + 1)) +m
+      3.不能使用Math.round()和Math.ceil()
+        Math.round()对于两端的数字是不公平的,概率是其他数字的一半
+        Math.ceil()对于左端的数字极度不公平
+    */
+    function generateArr() {
+      let arr = []
+      insertRand()
+
+      function insertRand() {
+        if (arr.length === 5) return
+        let rand = Math.floor(Math.random() * 30) + 2
+        if (arr.includes(rand)) {
+          insertRand()
+        } else {
+          arr.push(rand)
+          insertRand()
+        }
+      }
+      return arr
+    }
+    console.log(generateArr())
+
+    function generateArr(length, min, max, includeMax) {
+      let randomArr = []
+      insertNumber()
+
+      function insertNumber() {
+        if (randomArr.length === length) {
+          return
+        }
+        if (includeMax) {
+          let number = Math.floor(Math.random() * (max - min + 1) + min)
+          if (randomArr.includes(number)) {
+            insertNumber()
+          } else {
+            randomArr.push(number);
+            insertNumber()
+          }
+        } else {
+          let number = Math.floor(Math.random() * (max - min) + min)
+          if (randomArr.includes(number)) {
+            insertNumber()
+          } else {
+            randomArr.push(number);
+            insertNumber()
+          }
+        }
+      }
+      return randomArr
+    }
+
+    console.log(generateArr(5, 10, 30, true));
+  </script>
+</body>
+
+</html>

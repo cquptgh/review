@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>水平垂直居中</title>
+  <style>
+    /* 
+      方案1：绝对定位+margin负值
+      .outer {
+        position: relative;
+      }
+      .inner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -100px 0 0 -100px; 
+      }
+
+      方案2：绝对定位+transform(同样适用于不定宽高)
+      .outer {
+        position: relative;
+      }
+      .inner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      方案3：绝对定位+margin:auto
+      .outer {
+        position: relative;
+      }
+      .inner {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+      }
+
+      方案4：flex布局(同样适用于不定宽高)
+      .outer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    */
+    .outer {
+      width: 400px;
+      height: 400px;
+      background-color: pink;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .inner {
+      width: 200px;
+      height: 200px;
+      background-color: skyblue;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="outer">
+    <div class="inner"></div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bind的实现</title>
+</head>
+
+<body>
+  <script>
+    Function.prototype.bind_ = function (context) {
+      if (typeof this !== 'function') {
+        throw new Error("Function.prototype.bind - what is trying to be bound is not callable");
+      }
+      //获取原函数
+      const fn = this
+      //抓取绑定时传递的参数
+      let args = Array.prototype.slice.call(arguments, 1)
+      //定义绑定后的函数
+      const fBound = function () {
+        //抓取执行绑定后参数时传入的参数
+        let params = Array.prototype.slice.call(arguments)
+        return fn.apply(this instanceof fBound ? this : context, args.concat(params))
+      }
+      //定义一个中间函数
+      const fTemp = function () {}
+      fTemp.prototype = fn.prototype
+      fBound.prototype = new fTemp()
+      //返回绑定后的函数
+      return fBound
+    }
+
+    /* function bar(age, grade) {
+      console.log(age)
+      console.log(this.name)
+      return grade
+    }
+    const obj = {
+      name: 'gh'
+    }
+    let bound = bar.bind_(obj, 21)
+    console.log(bound('3')) */
+    var z = 0;
+    var obj = {
+      z: 1
+    };
+
+    function fn(x, y) {
+      this.name = 'gh';
+      console.log(this.z);
+      console.log(x);
+      console.log(y);
+    };
+    fn.prototype.age = 26;
+
+    var bound = fn.bind_(obj, 2);
+    var bound1 = fn.bind(obj, 2)
+    var person = new bound(3); //undefined 2 3
+
+    console.log(person.name);
+    console.log(person.age); //26
+    person.__proto__.age = 18;
+    var person = new fn();
+    console.log(person.age); //26
+  </script>
+</body>
+
+</html>

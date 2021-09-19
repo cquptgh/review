@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>函数柯里化</title>
+</head>
+
+<body>
+  <script>
+    function curry(fun, ...args) {
+      return function () {
+        let params = [...args, ...arguments].flat(Infinity)
+        if (params.length < fun.length) {
+          return curry.call(this, fun, params)
+        } else {
+          return fun.apply(this, params)
+        }
+      }
+    }
+
+    function add(num1, num2, num3) {
+      console.log(num1 + num2 + num3);
+    }
+
+    let curryAdd = curry(add, 1);
+    curryAdd(2)(3);
+
+    let fn = curry(function (a, b, c) {
+      console.log([a, b, c]);
+    });
+
+    fn("a", "b", "c") // ["a", "b", "c"]
+    fn("a", "b")("c") // ["a", "b", "c"]
+    fn("a")("b")("c") // ["a", "b", "c"]
+    fn("a")("b", "c") // ["a", "b", "c"]
+  </script>
+</body>
+
+</html>

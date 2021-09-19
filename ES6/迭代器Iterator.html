@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>迭代器Iterator</title>
+</head>
+
+<body>
+  <script>
+    /* 
+      部署了Iterator接口的数据类型有：Array,String,arguments对象,Set,Map
+      部署了Iterator接口的数据类型可以使用for...of...遍历
+    */
+    function myIterator(arr) {
+      let index = 0,
+        length = arr.length;
+      return {
+        next() {
+          return index < length ? {
+            value: arr[index++],
+            done: false
+          } : {
+            value: undefined,
+            done: true
+          }
+        }
+      }
+    }
+    let arr = [1, 2, 3, 4, 5];
+    let iterator = myIterator(arr);
+    console.log(iterator.next());
+    console.log(iterator.next());
+    console.log(iterator.next());
+    console.log(iterator.next());
+    console.log(iterator.next());
+    console.log(iterator.next());
+    console.log(iterator.next());
+  </script>
+</body>
+
+</html>

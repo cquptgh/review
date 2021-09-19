@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>作用域</title>
+</head>
+
+<body>
+  <script>
+    /* 
+      执行上下文(Execution Context)：当前代码的执行环境,执行上下文中包含了变量对象(VO)和作用域链(scopeChain)
+      创建阶段：生成变量对象,生成作用域链,确定this的指向
+      执行阶段：变量赋值,函数引用,执行其他代码
+      注意：执行上下文是动态的,是在代码的执行阶段确定的
+    */
+    /* 
+      变量对象的创建过程：
+        1.建立arguments对象;
+        2.检查function函数声明创建属性;
+        3.检查var变量声明创建属性。
+    */
+    /* 
+      作用域：可以供当前执行代码查找变量的区域。JS中采用的是词法作用域,即静态作用域,是在函数定义时就已经确定的,作用域可以起到
+            隔离变量的作用,不同作用域下同名变量不会有冲突
+      作用域链：当查找变量时会在当前执行上下文的变量对象中查找,如果没有找到则前往父级的执行上下文中查找,一直找到全局执行上下文
+              中的变量对象,如果没有找到则报错。这样由多个执行上下文的变量对象组成的链表称为作用域链
+      注意：作用域是静态的,在代码的编译阶段就已经确定了
+    */
+    console.log(c)
+
+    {
+      function c() {
+        console.log(1)
+      }
+    }
+  </script>
+</body>
+
+</html>

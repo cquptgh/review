@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>flex实现三列布局</title>
+  <style>
+    #container {
+      min-width: 600px;
+    }
+
+    #header,
+    #footer {
+      height: 20px;
+      background-color: yellowgreen;
+    }
+
+    #content {
+      display: flex;
+    }
+
+    .middle {
+      flex-grow: 1;
+      background-color: skyblue;
+    }
+
+    .left,
+    .right {
+      width: 200px;
+      background-color: pink;
+    }
+
+    .left {
+      order: -1;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div id="header">header</div>
+    <div id="content">
+      <div class="middle">middle
+        middle
+        middle
+        middle
+        middle
+        middle
+        middle
+        middle
+        middle
+        middle
+        middle
+        middle
+        middle
+        middle
+        middle
+        middle
+        middle
+        middle
+        middle
+        middle
+        middle
+      </div>
+      <div class="left">left</div>
+      <div class="right">right</div>
+    </div>
+    <div id="footer">footer</div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>复习圣杯布局</title>
+  <style>
+    #container {
+      min-width: 600px;
+    }
+
+    #header,
+    #footer {
+      height: 20px;
+      background-color: skyblue;
+    }
+
+    #content {
+      overflow: hidden;
+      padding: 0 200px;
+    }
+
+    .middle,
+    .left,
+    .right {
+      padding-bottom: 10000px;
+      margin-bottom: -10000px;
+      float: left;
+    }
+
+    .middle {
+      width: 100%;
+      background-color: yellowgreen;
+    }
+
+    .left,
+    .right {
+      width: 200px;
+      background-color: pink;
+    }
+
+    .left {
+      margin-left: -100%;
+      position: relative;
+      left: -200px;
+    }
+
+    .right {
+      margin-left: -200px;
+      position: relative;
+      left: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div id="header">header</div>
+    <div id="content">
+      <div class="middle">middle</div>
+      <div class="left">left</div>
+      <div class="right">right</div>
+    </div>
+    <div id="footer">footer</div>
+  </div>
+</body>
+
+</html>

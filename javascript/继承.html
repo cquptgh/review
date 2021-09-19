@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>继承</title>
+</head>
+
+<body>
+  <script>
+    /* 1.原型链继承 */
+    /* function Person(name, age) {
+      this.name = name
+      this.age = age
+      this.color = ['red', 'green', 'blue']
+    }
+    Person.prototype.sayName = function () {
+      console.log(this.name)
+    }
+
+    function Students(grade) {
+      this.grade = grade
+    }
+    Students.prototype = new Person('gh', 21)
+    Students.prototype.constructor = Students
+    Students.prototype.showGrade = function () {
+      console.log(this.grade)
+    }
+    const s1 = new Students('3')
+    console.log(s1) */
+
+    /* 2.组合继承(原型链继承+经典继承) */
+    /* function Person(name, age) {
+      this.name = name
+      this.age = age
+      this.color = ['red', 'green', 'blue']
+    }
+    Person.prototype.sayName = function () {
+      console.log(this.name)
+    }
+
+    function Students(name, age, grade) {
+      Person.call(this, name, age)
+      this.grade = grade
+    }
+    Students.prototype = new Person()
+    Students.prototype.constructor = Students
+    Students.prototype.showGrade = function () {
+      console.log(this.grade)
+    }
+    const s1 = new Students('gh', 21, '3')
+    const s2 = new Students('hxd', 19, '1')
+    s1.color.push('pink')
+    console.log(s1, s2) */
+
+    /* 3.寄生式组合继承 */
+    function inheritPrototype(subType, superType) {
+      const prototype = Object.create(superType.prototype)
+      prototype.constructor = subType
+      subType.prototype = prototype
+    }
+
+    function Person(name, age) {
+      this.name = name
+      this.age = age
+      this.color = ['red', 'green', 'blue']
+    }
+    Person.prototype.sayName = function () {
+      console.log(this.name)
+    }
+
+    function Students(name, age, grade) {
+      Person.call(this, name, age)
+      this.grade = grade
+    }
+    //Students.prototype = Object.create(Person.prototype)
+    inheritPrototype(Students, Person)
+    Students.prototype.constructor = Students
+    Students.prototype.showGrade = function () {
+      console.log(this.grade)
+    }
+    const s1 = new Students('gh', 21, '3')
+    const s2 = new Students('hxd', 19, '1')
+    s1.color.push('pink')
+    console.log(s1, s2)
+
+    /* 4.ES6继承 */
+    /* class Person {
+      constructor(name, age) {
+        this.name = name
+        this.age = age
+        this.color = ['red', 'green', 'blue']
+      }
+      sayName() {
+        console.log(this.name)
+      }
+    }
+
+    class Students extends Person {
+      constructor(name, age, grade) {
+        super(name, age)
+        this.grade = grade
+      }
+      showGrade() {
+        console.log(this.grade)
+      }
+    }
+
+    const s1 = new Students('gh', 21, '3')
+    const s2 = new Students('hxd', 19, '1')
+    s1.color.push('pink')
+    console.log(s1, s2) */
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>执行上下文</title>
+</head>
+
+<body>
+  <script>
+    /* 
+    1. 全局执行上下文一般由浏览器创建， 代码执行时就会创建； 函数执行上下文只有函数被调用时才会创建， 
+       调用多少次函数就会创建多少上下文。
+
+    2. 调用栈用于存放所有执行上下文， 满足FILO规则。
+
+    3. 执行上下文创建阶段分为绑定this， 创建词法环境， 变量环境三步， 两者区别在于词法环境存放函数声
+       明与const let声明的变量， 而变量环境只存储var声明的变量。
+
+    4. 词法环境主要由环境记录与外部环境引入记录两个部分组成， 全局上下文与函数上下文的外部环境引入记录
+       不一样， 全局为null， 函数为全局环境或者其它函数环境。 环境记录也不一样， 全局叫对象环境记录， 
+       函数叫声明性环境记录。
+
+    5. 你应该明白了为什么会存在变量提升， 函数提升， 而let const没有。
+
+    6. ES3之前的变量对象与活动对象的概念在ES5之后由词法环境， 变量环境来解释， 两者概念不冲突， 后者理解更为通俗易懂。
+    
+    */
+  </script>
+</body>
+
+</html>

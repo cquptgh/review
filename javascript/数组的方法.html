@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数组的方法</title>
+</head>
+
+<body>
+  <script>
+    /* 
+      数组的原型对象是一个数组,Function的原型对象是一个函数
+    */
+    /* 
+      1.栈方法(会修改原数组)：
+        push():向数组后端添加任意数量的参数,返回修改后数组的长度
+        pop():从数组末尾移除一项,返回移除的项
+      2.队列方法(会修改原数组)：
+        unshift():向数组前端添加任意个项,返回添加后数组的长度
+        shift():移除数组的第一项,且返回该项
+      3.重排序方法(会修改原数组)：
+        reverse():反转数组的顺序,返回经过反转后的数组
+        sort():arr.sort((a,b)=>a-b)升序
+              arr.sort((a,b)=>b-a)降序
+      4.操作方法(不会修改原数组)：
+        concat()
+        slice()
+        splice():会修改原数组
+      5.位置方法：
+        indexOf()
+        lastIndexOf()
+      6.迭代方法：
+        every()
+        some()
+        map()
+        filter()
+        forEach()
+      7.归并方法：
+        reduce()
+        reduceRight()
+    */
+
+    /* 
+      判断对象是否是数组的几种方法：
+        1.instanceof   例如：let arr = []; console.log(arr instanceof Array)
+        2.constructor  例如：let arr = []; console.log(arr.constructor === Array)
+          原理：因为实例对象身上本身是没有constructor属性的,所以它会沿着原型链查找,会在Array.prototype
+              身上找到constructor属性,原型对象身上的constructor属性是指向构造函数的
+        3.Object.prototype.toString().call(判断的对象).slice(8,-1).toLowerCase() === 'array'
+        4.ES5提出的Array.isArray()
+    */
+
+    /* 
+      判断数组是否包含某个元素的方法：
+        indexOf()
+        find()
+        findIndex()
+        includes()
+        some()
+    */
+
+    /* 
+      数组去重：
+        1.使用ES6的Set并结合扩展运算符
+        2.使用ES6的Set结合Array.from()
+        3.使用filter()+indexOf()
+        4.reduce()+includes()
+    */
+    let arr = [1, 1, 'true', 'true', true, true, 15, 15, false, false, undefined, undefined, null, null, NaN, NaN,
+      'NaN', 0, 0, 'a', 'a', {}, {}
+    ];
+    console.log(arr.length);
+    console.log([...new Set(arr)]);
+    console.log(Array.from(new Set(arr)));
+    console.log(arr.filter((item, index, arr) => arr.indexOf(item) === index));
+
+    function unique(arr) {
+      return arr.reduce((previousValue, currentValue) => previousValue.includes(currentValue) ? previousValue :
+        previousValue
+        .concat(currentValue), [])
+    }
+    console.log(unique(arr))
+
+    let result = arr.reduce((previousValue, currentValue) => {
+      if (currentValue in previousValue) {
+        previousValue[currentValue]++
+      } else {
+        previousValue[currentValue] = 1
+      }
+      return previousValue
+    }, {});
+    console.log(result);
+
+    function count(arr) {
+      let map = new Map()
+      for (let i = 0, length = arr.length; i < length; i++) {
+        if (map.has(arr[i])) {
+          let num = map.get(arr[i])
+          map.set(arr[i], num + 1)
+        } else {
+          map.set(arr[i], 1)
+        }
+      }
+      return map
+    }
+    console.log(count(arr));
+
+    //数组扁平化
+    // 来个示例数组
+    let arr = [1, [2, [3, [4, [5]]]]]
+
+    function myFlat(arr) {
+      return arr.reduce((previous, current) => previous.concat(Array.isArray(current) ? myFlat(current) : current), [])
+    }
+    console.log(arr.flat(Infinity));
+    console.log(myFlat(arr));
+  </script>
+</body>
+
+</html>

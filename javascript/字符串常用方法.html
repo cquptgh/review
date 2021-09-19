@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字符串常用的方法</title>
+</head>
+
+<body>
+  <script>
+    /* 
+      1.字符方法
+        charAt()
+        charCodeAt()
+      2.操作方法
+        substr()
+        substring()
+        slice()
+        当三个方法只传递一个参数且参数不是负值时,效果完全一样,都是从指定位置开始截取字符串并返回截取的字符串
+        当三个方法传递两个参数且参数均不为负值时,slice和substring的效果一样,从指定字符串的第一个参数位置起截取到第二个参数
+            前的字符串并返回(意思就是说不包含第二个参数位置的字符)
+            但substr()第二个参数指定的是要截取字符的数量
+        当三个方法传入的参数是负值时,slice()会将负值与当前字符串的长度相加;substr()会将第一个参数(如果是负值)与字符串长度相加,
+        第二个参数(如果是负值)直接转换为0;而substring()会将所有的负值转换为0,且substring()会自动将较小的数作为起始位置
+        
+        去除空格：
+        trim()
+        trimleft()
+        trimRight()
+        
+        repeat()
+        padStart()
+        padEnd()
+        toLowerCase()
+        toUpperCase()
+    */
+    let stringValue = "foo";
+    console.log(stringValue.padStart(6)); // " foo"
+    console.log(stringValue.padStart(9, ".")); // "......foo"
+    console.log(stringValue)
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>创建对象</title>
+</head>
+
+<body>
+  <script>
+    /* 1.工厂模式 */
+    function createPerson(name, age) {
+      const obj = new Object()
+      obj.name = name
+      obj.age = age
+      obj.sayName = function () {
+        console.log(this.name)
+      }
+      return obj
+    }
+    const p1 = createPerson('gh', 21)
+    const p2 = createPerson('hxd', 19)
+    console.log(p1, p2)
+
+    /* 2.构造函数模式 */
+    function Person(name, age) {
+      this.name = name
+      this.age = age
+      this.sayName = function () {
+        console.log(this.name)
+      }
+    }
+    const p3 = new Person('zs', 14)
+    const p4 = new Person('ls', 15)
+    console.log(p3, p4)
+
+    /* 3.组合模式(构造函数模式+原型模式) */
+    function Person(name, age) {
+      this.name = name
+      this.age = age
+    }
+    Person.prototype = {
+      constructor: Person,
+      sayName() {
+        console.log(this.name)
+      }
+    }
+    const p5 = new Person('xh', 16)
+    const p6 = new Person('xm', 18)
+    console.log(p5, p6)
+  </script>
+</body>
+
+</html>

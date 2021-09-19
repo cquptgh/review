@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>相等操作符和全等操作符</title>
+</head>
+
+<body>
+  <script>
+    /* 
+      相等操作符转换不同类型遵循的规则：
+        1.如果有一个操作数是布尔值,则在比较相等性之前先将其转换为数值--true转换为1,false转换为0;
+        2.如果有一个操作数是数值,有一个操作数是字符串,则在比较相等性之前将字符串转换为数值;
+        3.如果一个操作数是对象,另一个操作数不是,则调用对象的valueOf()方法,用得到的基本类型按照前面的规则进行比较;
+        4.在比较相等性之前,undefined和null不会被转换
+      除了在比较相等性之前不转换操作数之外,全等操作符和相等操作符没有什么区别
+    */
+  </script>
+</body>
+
+</html>

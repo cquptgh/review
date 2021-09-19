@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>instanceof</title>
+</head>
+
+<body>
+  <script>
+    /* 
+      instanceof原理：instanceof有两个操作数,A instanceof B,A必须是一个对象,B必须是一个函数,如果B的原型,也就是
+                    B.prototype出现在A的原型链上则返回true,否则返回false
+    */
+    function instance_of(left, right) {
+      const rightPrototype = right.prototype
+      while (true) {
+        if (left === null) {
+          return false
+        }
+        if (left === rightPrototype) {
+          return true
+        }
+        left = left.__proto__
+      }
+    }
+    console.log(instance_of(String, String)); // ?
+    console.log(instance_of(Object, Object)); // ?
+    console.log(instance_of(Function, Function)); // ?
+    console.log(instance_of(Function, Object)); // ?
+    console.log(instance_of(Object.prototype, Object))
+  </script>
+</body>
+
+</html>

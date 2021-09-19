@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promise获取新闻内容</title>
+</head>
+
+<body>
+  <script>
+    /* function getNews(url) {
+      let promise = new Promise((resolve, reject) => {
+        let xml = new XMLHttpRequest()
+        xml.open('get', url)
+        xml.send()
+        xml.onreadystatechange = function () {
+          if (xml.readyState === 4) {
+            if (xml.status >= 200 && xml.status < 300) {
+              resolve(xml.responseText)
+            }
+          }
+        }
+      })
+      return promise
+    }
+
+    let url = 'http://localhost:3000/news?id=2'
+    getNews(url).then(news => {
+      console.log('新闻内容', news)
+      let commentsUrl = 'http://localhost:3000' + JSON.parse(news).commentsUrl
+      return getNews(commentsUrl)
+    }).then(response => {
+      console.log('评论内容', response)
+    }); */
+
+    /* function getNews(url) {
+      let xml = new XMLHttpRequest()
+      xml.open('get', url)
+      xml.send()
+      xml.onreadystatechange = function () {
+        if (xml.readyState === 4) {
+          if (xml.status >= 200 && xml.status < 300) {
+            iterator.next(xml.response);
+          }
+        }
+      }
+    }
+
+    function* myGenerator() {
+      let result = yield getNews('http://localhost:3000/news?id=2')
+      console.log('新闻内容', result)
+      let url = 'http://localhost:3000' + JSON.parse(result).commentsUrl
+      result = yield getNews(url)
+      console.log('评论内容', result)
+    }
+    let iterator = myGenerator();
+    iterator.next(); */
+
+
+    function getNews(url) {
+      let promise = new Promise((resolve, reject) => {
+        let xml = new XMLHttpRequest()
+        xml.open('get', url)
+        xml.send()
+        xml.onreadystatechange = function () {
+          if (xml.readyState === 4) {
+            if (xml.status >= 200 && xml.status < 300) {
+              resolve(xml.responseText)
+            }
+          }
+        }
+      })
+      return promise
+    }
+
+    async function getMessage() {
+      let result = await getNews('http://localhost:3000/news?id=2')
+      console.log('新闻内容', result)
+      let url = 'http://localhost:3000' + JSON.parse(result).commentsUrl
+      result = await getNews(url)
+      console.log('评论内容', result)
+    }
+
+    getMessage()
+  </script>
+</body>
+
+</html>

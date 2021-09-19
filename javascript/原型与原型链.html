@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>原型与原型链</title>
+</head>
+
+<body>
+  <script>
+    /* 
+      原型：
+          1.所有引用类型都有一个隐式原型属性__proto__,它指向一个一般对象(原型对象)
+          2.所有函数都有一个显示原型属性prototype,它也指向一个一般对象(原型对象)
+          3.所有引用类型的隐式原型属性都等于它构造函数的显示原型属性
+          注意：所有原型对象都是Object的实例对象(除了Object自身的原型对象)
+              所有函数都是Function的实例对象(包括Function自身)
+
+      原型链：当访问某个对象的属性时,现在对象自身查找,如果没有找到则前往__proto__指向的原型对象身上查找,如果依然没有找到,
+            则前往原型对象的__proto__指向的原型对象上查找,直到找到Object的原型对象,没有找到则返回undefined,这种沿着
+            __proto__属性向上查找属性而形成的链式结构称为原型链
+      原型链的尽头：Object原型对象的__proto__(null)
+    */
+  </script>
+</body>
+
+</html>

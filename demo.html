@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>复习</title>
+</head>
+
+<body>
+  <script>
+    /* function myNew(Constructor) {
+      const instanceObj = Object.create(Constructor.prototype)
+      let args = Array.prototype.slice.call(arguments, 1)
+      let result = Constructor.apply(instanceObj, args)
+      if (typeof result === 'function' || typeof result === 'object' && result) {
+        return result
+      }
+      return instanceObj
+    } */
+    function myNew(Constructor, ...args) {
+      const instanceObj = Object.create(Constructor.prototype)
+      let result = Constructor.apply(instanceObj, args)
+      if (typeof result === 'function' || typeof result === 'object' && result) {
+        return result
+      }
+      return instanceObj
+    }
+
+    function myInstanceof(left, right) {
+      const RP = right.prototype
+      while (true) {
+        if ((typeof left !== 'object' && typeof left !== 'function') || left === null) {
+          return false
+        }
+        if (left === RP) {
+          return true
+        }
+        left = Object.getPrototypeOf(left)
+      }
+    }
+
+    Function.prototype.call1 = function (context) {
+      context = context ? Object(context) : window
+      context.fn = this
+      let args = Array.prototype.slice.call(arguments, 1)
+      let result = context.fn(...args)
+      delete context.fn
+      return result
+    }
+
+    Function.prototype.call2 = function (context) {
+      context = context ? Object(context) : window
+      context.fn = this
+      let args = []
+      for (let i = 1, length = arguments.length; i < length; i++) {
+        args.push('arguments[' + i + ']')
+      }
+      let result = eval('context.fn(' + args + ')')
+      delete context.fn
+      return result
+    }
+
+    Function.prototype.call3 = function (context, ...args) {
+      context = context ? Object(context) : window
+      context.fn = this
+      let result = context.fn(...args)
+      delete context.fn
+      return result
+    }
+
+    Function.prototype.apply1 = function (context, arr) {
+      context = context ? Object(context) : window
+      context.fn = this
+      let result, args = []
+      if (!arr) {
+        result = context.fn()
+      } else {
+        for (let i = 0, length = arr.length; i < length; i++) {
+          args.push('arr[' + i + ']')
+        }
+        result = eval('context.fn(' + args + ')')
+      }
+      delete context.fn
+      return result
+    }
+
+    Function.prototype.apply2 = function (context, arr) {
+      context = context ? Object(context) : window
+      context.fn = this
+      let result
+      if (!arr) {
+        result = context.fn()
+      } else {
+
+        result = context.fn(...arr)
+      }
+      delete context.fn
+      return result
+    }
+
+    Function.prototype.bind1 = function (context) {
+      if (typeof this !== 'function') {
+        return new TypeError('类型错误')
+      }
+      const fn = this
+      let args = Array.prototype.slice.call(arguments, 1)
+      const boundFunction = function () {
+        let params = Array.prototype.slice.call(arguments)
+        return fn.apply(this instanceof fn ? this : context, args.concat(params))
+      }
+      boundFunction.prototype = Object.create(this.prototype)
+      return boundFunction
+    }
+
+    function Person(name, age) {
+      this.name = name
+      this.age = age
+    }
+
+    function sayName() {
+      console.log(this.name);
+      console.log(arguments);
+    }
+
+    let p = myNew(Person, 'gh', 21);
+    let fun = sayName.bind(p, 'test');
+    let bar = sayName.bind1(p, 'test');
+    /* fun();
+    bar(); */
+
+    /* for (let i = 0; i < 5; i++) {
+      setTimeout(() => {
+        console.log(i);
+      }, i * 1000);
+    }
+
+    for (var i = 0; i < 5; i++) {
+      setTimeout(((i) => {
+        return () => console.log(i);
+      })(i), i * 1000)
+    }
+
+    for (var i = 0; i < 5; i++) {
+      (function (i) {
+        setTimeout(() => {
+          console.log(i);
+        }, i * 1000)
+      })(i)
+    } */
+
+    /* function curry(fun, ...args) {
+      return function () {
+        let params = [...args, ...arguments].flat(Infinity);
+        if (params.length < fun.length) {
+          return curry.call(this, fun, params)
+        } else {
+          return fun.apply(this, params)
+        }
+      }
+    }
+
+    function curry(fun, ...args) {
+      return function () {
+        let params = [...args, ...arguments].flat(Infinity)
+        if (params.length < fun.length) {
+          return curry.call(this, fun, params)
+        } else {
+          return fun.apply(this, params)
+        }
+      }
+    } */
+
+    const delay = time => {
+      return new Promise((resolve, reject) => setTimeout(resolve, time));
+    }
+
+    async function test() {
+      console.log(0);
+      await delay(1000);
+      console.log(1);
+    }
+
+    test()
+  </script>
+</body>
+
+</html>

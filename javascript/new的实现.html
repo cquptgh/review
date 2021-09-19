@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New的实现</title>
+</head>
+
+<body>
+  <script>
+    /* 
+      使用new操作符创建一个对象所经历的步骤
+        1.创建一个对象
+        2.让该对象的隐式原型属性等于构造函数的显示原型属性
+        3.将构造函数中的this指向该对象
+        4.执行构造函数中的代码,为该对象添加属性和方法
+        5.返回该实例对象
+    */
+    /* function myNew() {
+      //创建一个实例对象,该对象也就是最后需要返回的对象
+      const instanceObj = {}
+      //获取构造函数,构造函数通过第一个参数传入
+      const Constructor = arguments[0]
+      //如果构造函数的原型对象不为空,则将实例对象的__proto__指向该原型对象
+      if (Constructor.prototype) {
+        instanceObj.__proto__ = Constructor.prototype
+      }
+      //执行构造函数为实例对象添加属性,并接收返回结果
+      const result = Constructor.apply(instanceObj, Array.prototype.slice.call(arguments, 1))
+      //如果构造函数执行的结果为一个对象,则将该对象返回
+      if (typeof result === 'function' || typeof result === 'object' && result) {
+        return result
+      }
+      return instanceObj
+    } */
+
+    function myNew(Constructor, ...args) {
+      const instanceObj = Object.create(Constructor.prototype)
+      let result = Constructor.apply(instanceObj, args)
+      if (typeof result === 'function' || typeof result === 'object' && result) {
+        return result
+      }
+      return instanceObj
+    }
+
+    function Person(name, age) {
+      this.name = name
+      this.age = age
+    }
+    const p1 = myNew(Person, 'gh', 21)
+    const p2 = new Person('hxd', 19)
+    console.log(p1);
+    console.log(p2);
+  </script>
+</body>
+
+</html>

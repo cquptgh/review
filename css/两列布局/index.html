@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>两列布局</title>
+  <style>
+    /* 
+      方案1：float+margin-left
+      .left {
+        float: left;
+      }
+      .right {
+        margin-left: 左列的宽度
+      }
+
+      方案2：float+overflow(同样适用于左列不定宽)
+      .left {
+        float: left;
+      }
+      .right {
+        overflow: hidden;
+      }
+
+      方案3：绝对定位
+      .left {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      .right {
+        position: absolute;
+        top: 0;
+        left: 左列的宽度;
+        right: 0;
+      }
+
+      方案4：flex布局(同样适用于左列不定宽)
+      <div class="container">
+        <div class="left">左列</div>
+        <div class="right">右列自适应</div>
+      </div>
+      .container {
+        display: flex;
+      }
+      .right {
+        flex-grow: 1;
+      }
+    */
+    .container {
+      display: flex;
+    }
+
+    .left {
+      width: 200px;
+      height: 400px;
+      background-color: pink;
+    }
+
+    .right {
+      height: 400px;
+      background-color: skyblue;
+      flex-grow: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="left">左列</div>
+    <div class="right">右列自适应</div>
+  </div>
+</body>
+
+</html>

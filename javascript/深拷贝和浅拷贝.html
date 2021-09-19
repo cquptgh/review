@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>深拷贝和浅拷贝</title>
+</head>
+
+<body>
+  <script>
+    /* 
+      浅拷贝：创建一个新对象，这个对象有着原始对象属性值的一份精确拷贝。如果属性是基本类型，
+      拷贝的就是基本类型的值，如果属性是引用类型，拷贝的就是内存地址 ，所以如果其中一个对象
+      改变了这个地址，就会影响到另一个对象。
+      常见的浅拷贝方式：Object.assign,Array.prototype.slice(),Array.prototype.concat(),使用扩展运算符实现的复制...
+
+
+      深拷贝：将一个对象从内存中完整的拷贝一份出来,从堆内存中开辟一个新的区域存放新对象,且修改新对象不会影响原对象
+      常见的深拷贝方式：JSON.stringify()和JSON.parse(),lodash.cloneDeep(),手写递归实现...
+    */
+
+    /* function shallowClone(data) {
+      if (typeof data !== 'object') return
+      let target = Array.isArray(data) ? [] : {}
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          target[key] = data[key]
+        }
+      }
+      return target
+    }
+
+    function deepClone(data) {
+      if (typeof data !== 'object') return
+      let target = Array.isArray(data) ? [] : {}
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          (typeof data[key] === 'object') ? target[key] = deepClone(data[key]): target[key] = data[key]
+        }
+      }
+      return target
+    }
+
+    let obj = {
+      name: 'gh',
+      age: 21,
+      color: ['green', 'pink']
+    }; */
+    /* let obj1 = shallowClone(obj);
+    obj1.name = 'hxd';
+    obj1.color[0] = 'yellow';
+    console.log(obj, obj1); */
+    /* let obj1 = deepClone(obj);
+    obj1.name = 'hxd';
+    obj1.color[0] = 'yellow';
+    console.log(obj, obj1); */
+
+    function shallowClone(dataSource) {
+      let cloneData = Array.isArray(dataSource) ? [] : {}
+      for (let prop in dataSource) {
+        if (dataSource.hasOwnProperty(prop)) {
+          cloneData[prop] = dataSource[prop]
+        }
+      }
+      return cloneData
+    }
+
+    function determine(data) {
+      return typeof data !== 'object' ? typeof data : Object.prototype.toString.call(data).slice(8, -1).toLowerCase()
+    }
+
+    function deepClone(dataSource) {
+      let dataType = determine(dataSource)
+      let cloneData
+      if (dataType === 'array') {
+        cloneData = []
+      } else if (dataType === 'object') {
+        cloneData = {}
+      } else {
+        return dataSource
+      }
+
+      for (const keyOrIndex in dataSource) {
+        if (typeof dataSource[keyOrIndex] === 'object' || typeof dataSource[keyOrIndex] === 'array') {
+          cloneData[keyOrIndex] = deepClone(dataSource[keyOrIndex])
+        } else {
+          cloneData[keyOrIndex] = dataSource[keyOrIndex]
+        }
+      }
+      return cloneData
+    }
+
+    let arr = [1, 2, [3, 4, 5], 6, 7]
+    //let arr1 = arr.concat()
+    //let arr1 = [...arr]
+    // let arr1 = deepClone(arr)
+    let arr1 = JSON.parse(JSON.stringify(arr))
+    arr1[2][0] = 33
+    console.log(arr)
+    console.log(arr1)
+  </script>
+</body>
+
+</html>
